@@ -162,3 +162,42 @@ Therefore, at each iteration:
 6. Repeat until the residuals are below the tolerance
 
 ## SOR applied to the model
+The conservation of potential vorticity equation is:
+
+$$
+\frac{\partial q}{\partial t} + u \frac{\partial q}{\partial x} + \beta \frac{\partial \psi}{\partial x} = 0      
+$$
+
+Discretization yields a linear system:
+
+$$
+A \psi^{n+1} = b
+$$
+
+where A is tridiagonal and the grid points are given: i = 1, 2, ..., n along the x-axis. The second-order finite difference scheme for the Laplacian of the streamfunction is:
+
+$$
+\frac{\partial^2 \psi}{\partial^2 x} \approx \frac{\psi_{i-1} - 2 \psi_{i} + \psi_{i+1}}{\Delta x^2}
+$$
+
+or
+
+$$
+\Delta x^2 f_{i} = -\psi_{i-1} + 2 \psi_{i} - \psi_{i+1}
+$$
+
+where $f_{i}$ includes the planetary vorticity term and forcing terms from the previous step (i.e., q). Applying this to the update formula:
+
+$$
+\psi_{i}^{(k+1)} = (1 - \omega) \psi_{i}^{(k)} + \frac{\omega}{2} (\psi_{i-1}^{(k+1)} + \psi_{i+1}^{(k)} - \Delta x^2 f_{i})
+$$
+
+In the above equation:
+1. The $(1 - \omega) \psi_{i}^{(k)}$ term retains a fraction of the OLD value
+2. The $\frac{\omega}{2} (\psi_{i-1}^{(k+1)} + \psi_{i+1}^{(k)} - \Delta x^2 f_{i})$ is the Gauss-Seidel part
+
+   a. Uses the updated leftward point: $\psi_{i-1}^{(k+1)}$
+   
+   b. Uses the old rightward point: $\psi_{i+1}^{(k)}$
+   
+   c. Also incorporates the $f_{i}$ term (i.e., q)
