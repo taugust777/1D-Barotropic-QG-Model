@@ -1,5 +1,7 @@
 This file serves as an overview of the Successive Over-Relaxation (SOR) utilized in the model source code (“1D_Barotropic_Model_CODE.py”).
 
+## The General Method
+
 First, assume a linear PDE system:
 
 $$
@@ -144,3 +146,19 @@ $$
 r_{i}^{(k)} = d_{i} - a_{i}x_{i-1}^{(k+1)} - b_{i}x_{i}^{(k)} - c_{i}x_{i+1}^{(k)}
 $$
 
+Then, introduce a tolerance, $\epsilon$.  Solving $Ax = b$ iteratively provides successive approximations: $x_{0}$, $x_{1}$, $x_{2}$, etc.
+Every iteration brings it closer to the true solution.  The tolerance provides a quantitative measure for when the solution is considered "close enough" (i.e., it defines how small the error must be before stopping the iteration). To obtain a tolerance value, track how $x_{i}$ changes between iterations:
+
+$$
+max_{i} |x_{i}^{(k+1)} - x_{i}^{(k)}| < \epsilon
+$$
+
+Therefore, at each iteration:
+1. There is a current guess (the $x_{i}^{(k)}$ term)
+2. The residual, $r_{i}^{(k)}$ is computed (i.e., how far from satisfying the equation)
+3. The residual is used to correct $x_{i}^{(k)}$ (scaled by $\frac{\omega}{b_{i}}$)
+4. $\epsilon$ > 1 takes bigger corrective steps (over-relaxation)
+5. Sweep across i = 1, 2, ..., n
+6. Repeat until the residuals are below the tolerance
+
+## SOR applied to the model
