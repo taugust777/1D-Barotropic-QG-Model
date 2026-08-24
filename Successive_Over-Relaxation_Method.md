@@ -116,7 +116,8 @@ $$
 x_{i}^{(k+1)} = \frac{1}{b_{i}}(d_{i} - a_{i}x_{i-1}^{(k+1)} - c_{i}x_{i+1}^{(k)})
 $$
 
-The Gauss-Seidel update in the above equation constantly updates and uses the newest value for each iteration.  For the standard Gauss-Seidel method, this value becomes the next iterate (i.e., $x_{i}^{(k+1)} = x_{i}^{(GS)}$). The SOR method takes the Gauss-Seidel update, $x_{i}^{(GS)}$, and "pushes" it further in that same direction to speed convergence (hence, "over-relaxation"). So, instead of letting $x_{i}^{(k+1)} = x_{i}^{(GS)}$, the SOR method uses,
+The Gauss-Seidel update in the above equation constantly updates and uses the newest value for each iteration.  For the standard Gauss-Seidel method, this value becomes the next iterate (i.e., $x_{i}^{(k+1)} = x_{i}^{(GS)}$). The SOR method takes the Gauss-Seidel 
+update, $x_{i}^{(GS)}$, and "pushes" it further in that same direction to speed convergence (hence, "over-relaxation"). So, instead of letting $x_{i}^{(k+1)} = x_{i}^{(GS)}$, the SOR method uses,
 
 $$
 x_{i}^{(k+1)} = (1 - \omega)x_{i}^{(k)} + \omega x_{i}^{(GS)}
