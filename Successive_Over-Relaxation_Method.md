@@ -1,3 +1,5 @@
+This file serves as an overview of the Successive Over-Relaxation (SOR) utilized in the model source code (“1D_Barotropic_Model_CODE.py”).
+
 First, assume a linear PDE system:
 
 $$
