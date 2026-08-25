@@ -28,7 +28,7 @@ All constants are listed at the beginning of the script (“1D_Barotropic_Model_
 4. Bottom-right: the streamfunction at a given time step (ψ vs. x)
 
 The model also returns:
-1. A time check value to ensure the forward Euler time-stepping scheme is appropriate for the chosen model parameters (value should be >1)
+1. A time check value to ensure the forward Euler time-stepping scheme is appropriate for the chosen model parameters (value should be <1)
 2. The initial vorticity error comparing the numerical value obtained to the theoretical value obtained
 3. The theoretical phase speed
 4. The numerical phase speed
@@ -59,9 +59,15 @@ $\epsilon$ (tol) -> SOR convergence tolerance
 
 # Output Example
 
-![Example for Model Output](images/Baro_QG_Model_Output.png)
+![Example for Model Output](images/Baro_QG_Model_Output_DEFAULT.png)
 
-The model reproduces the expected propagation of a barotropic Rossby Wave. The output figure above shows the evolution of the streamfunction throughout the model run and the corresponding spatial structure at a selected time step. The plot also shows the computed numerical and theoretical phase speeds. The example plot above was done for the default model conditions/parameters.
+The returned values are:
+- Proper time step check (<1): 0.0064
+- Initial vorticity error = 1.268e-16
+- Theoretical phase speed = 4.8974 m/s
+- Numerical phase speed = 5.0977 m/s
+
+The model reproduces the expected propagation of a barotropic Rossby Wave. The output figure above shows the evolution of the streamfunction throughout the model run and the corresponding spatial structure at a selected time step (here, t_index = 100. The plot also shows the computed numerical and theoretical phase speeds. The example plot above was done for the default model conditions/parameters.
 
 # Packages
 
