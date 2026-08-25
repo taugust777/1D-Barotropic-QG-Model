@@ -1,3 +1,7 @@
+# 1D Barotropic QG Model
+
+# Overview
+
 The code in this repository is a simple 1D Barotropic Quasi-Geostrophic model that tracks Rossby Wave propagation.  The fundamental equation utilized in this model is the 1D potential vorticity conservation equation:
 
 $$
@@ -10,7 +14,11 @@ $$
 q = \nabla^2 \psi 
 $$
 
+# Numerical Methods
+
 The model utilizes a finite difference grid scheme as well as a Successive Over-Relaxation (SOR) method to iteratively solve the Poisson equation relating the streamfunction and the vorticity (see the file: “Successive_Over-Relaxation_Method.md” for details).  
+
+# Running the Model
 
 All constants are listed at the beginning of the script (“1D_Barotropic_Model_CODE.py”), and the output produces a four-panel plot that includes the following:
 
@@ -21,6 +29,16 @@ All constants are listed at the beginning of the script (“1D_Barotropic_Model_
   
 An overlaid black line appears on the first three panels and is an indicator of the selected time step (the “t_index” variable).  This overlaid black line is what is displayed on the bottom-right panel that plots the streamfunction vs. the horizontal distance.  An example output is shown in the file: “Example_Output.md”
 
+# Model Parameters
+
+
+
+# Output Example
+
+![Example for Model Output](images/Baro_QG_Model_Output.png)
+
+# Packages
+
 The only packages needed to run this model are numpy and matplotlib.  The goal of this model was to create a simple, easy-to-use code to examine Rossby Wave propagation.
 
 The code here is free and available to download, use, and can be modified any way.  I do ask for an appropriate acknowledgement should it be used in any kind of project, publication, teaching material, etc.
@@ -28,7 +46,7 @@ The code here is free and available to download, use, and can be modified any wa
 
 
 
-Reference Links:
+# Reference Links
 
 https://blogs.millersville.edu/adecaria/files/2021/11/esci342_lesson13_vorticity_equation.pdf 
 
