@@ -23,17 +23,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-#All constants 
+#Model constants -> keep as is
+k = 2 * np.pi / lx #Wavenumber
 nx = 128
 lx = 1e6  #m
+
+#Parameters -> can be modified
 nt = 500
 dt = 10
 u = 5 #m/s
 beta = 1.62e-11 #/ms
 e = 0.001 #Amplitude
-k = 4 * np.pi / lx #Wavenumber
 omega = 1.5
 tol = 1e-10
+t_index = 100 #This can be changed (0 - nt - 1) -> multiplied by 10^2 on y axis 
+              #Also have that black line on the top plot corresponding to the time (lower plot shows snapshot of that time)
 
 
 #_____________________________________________________________________________________________________________________________
@@ -226,8 +230,7 @@ X = x #For contour
 T = np.arange(nt) * dt #For countour
                        #Gives an array for the time values to be plotted 
 
-t_index = 100 #This can be changed (0 - nt - 1) -> multiplied by 10^2 on y axis 
-              #Also have that black line on the top plot corresponding to the time (lower plot shows snapshot of that time)
+
 time_value = T[t_index] #Store the time values in this array
 
 #Before plotting, the phase speed can be verified
@@ -244,6 +247,12 @@ for n in range(nt):
 #Array for where the crest positions are at
 crest_positions = np.array(crest_positions)
 
+#Since the domain is periodic, if the wave wraps around the periodic domain, the crest tracking could become an issue
+for i in range(1, len(crest_positions)):
+    if crest_positions[i] - crest_positions[i-1] < -lx/2:
+        crest_positions[i:] += lx
+    elif crest_positions[i] - crest_positions[i-1] > lx/2:
+        crest_positions[i:] -= lx
 
 c_numerical, intercept = np.polyfit(T, crest_positions, 1)
 
@@ -311,6 +320,7 @@ plt.plot(x, psi_all[t_index, :], c = "black")
 #plt.ylim(-0.002, 0.002) #These can change; just here for set conditions
 plt.xlabel("x (m)")
 plt.ylabel("Psi (m^2/s)")
+plt.xlim(0, lx)
 plt.title("Psi at a given time interval")
 
 
@@ -321,6 +331,7 @@ cbar = plt.colorbar(cf, ax = plt.gcf().axes, orientation = "horizontal")
 
 cbar.set_label("Psi (m^2/s)")
 plt.suptitle("Evolution of the Streamfunction (Psi)")
+
 
 plt.show()
 
