@@ -10,7 +10,7 @@ $$
 q = \nabla^2 \psi 
 $$
 
-The model utilizes a finite difference grid scheme as well as a Successive Over-Relaxation (SOR) method for time stepping (see the file: “Successive_Over-Relaxation_Method.md” for details).  
+The model utilizes a finite difference grid scheme as well as a Successive Over-Relaxation (SOR) method to iteratively solve the Poisson equation relating the streamfunction and the vorticity (see the file: “Successive_Over-Relaxation_Method.md” for details).  
 
 All constants are listed at the beginning of the script (“1D_Barotropic_Model_CODE.py”), and the output produces a four-panel plot that includes the following:
 
