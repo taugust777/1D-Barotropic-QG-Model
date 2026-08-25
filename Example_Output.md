@@ -1,3 +1,5 @@
+# Example
+
 This file provides a quick example of the model output as well as some future ideas.
 
 ## Output
