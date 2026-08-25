@@ -1,6 +1,6 @@
 # Successive Over-Relaxation (SOR) Method
 
-The streamfunction is obtained by numerically inverting the discretized one-dimensional Poisson equation. A second-order finite difference scheme produces a tridiagonal linear system, which is solved iteratively using the Successive Over-Relaxation (SOR) method. This file serves as an overview of the Successive Over-Relaxation (SOR) utilized in the model source code (“1D_Barotropic_Model_CODE.py”).
+The streamfunction is obtained by numerically inverting the discretized 1D Poisson equation. A second-order finite difference scheme produces a tridiagonal linear system, which is solved iteratively using the Successive Over-Relaxation (SOR) method. This file serves as an overview of the Successive Over-Relaxation (SOR) utilized in the model source code (“1D_Barotropic_Model_CODE.py”).
 
 ## The General Method
 
@@ -89,7 +89,7 @@ To approximate x, the Gauss-Seidel method can be used iteratively, where newly c
 The iterative solution is
 
 $$
-(D + L)x^{(k+1)} = b - ux^{(k)}
+(D + L)x^{(k+1)} = b - Ux^{(k)}
 $$
 
 or in terms of the components
