@@ -33,29 +33,36 @@ The model also returns:
 3. The theoretical phase speed
 4. The numerical phase speed
 
-The top-left and top-right plots contain an overlaid black line, which is an indicator of the selected time step (the “t_index” variable). This overlaid black line is what is displayed on the bottom-right panel that plots the streamfunction vs. the horizontal distance. The bottom-left plot shows the numerical phase speed propagation that was obtained from the model and the computed theoretical phase speed. The numerical phase speed is found by examining the crest points. An example output is shown in the file “Example_Output.md” and below.
+The top-left and top-right plots contain an overlaid black line, which is an indicator of the selected time step (the “t_index” variable). This overlaid black line is what is displayed on the bottom-right panel that plots the streamfunction vs. the horizontal distance. The bottom-left plot shows the numerical phase speed propagation that was obtained from the model and the computed theoretical phase speed. The numerical phase speed is found by examining the crest points. An example output is shown in the file “Example_Output.md"
+and the default model output is shown below.
 
-# Model Parameters
+# Model Input
 
-nx -> number of spatial grid points
+### Model Constants
+
+nx -> number of spatial grid points 
 
 lx -> domain length (m)
 
-nt -> number of time steps
-
-dt -> time step (s)
-
-u -> zonal velocity component (m/s)
-
-$\beta$ (beta) -> planetary vorticity gradient (/ms)
-
-e -> initial disturbance amplitude
-
 k = 4 * np.pi / lx -> wavenumber
 
-$\omega$ (omega)  -> SOR relaxation factor
+### Model Parameters
 
-$\epsilon$ (tol) -> SOR convergence tolerance
+nt -> number of time steps (DEFAULT: 500)
+
+dt -> time step (s) (DEFAULT: 10)
+
+u -> zonal velocity component (m/s) (DEFAULT: 5)
+
+$\beta$ (beta) -> planetary vorticity gradient (/ms) (DEFAULT: 1.62e-11)
+
+e -> initial disturbance amplitude (DEFAULT: 0.001)
+
+$\omega$ (omega)  -> SOR relaxation factor (DEFAULT: 1.5)
+
+$\epsilon$ (tol) -> SOR convergence tolerance (DEFAULT: 1e-10)
+
+time index (t_index) (DEFAULT: 100)
 
 # Output Example
 
