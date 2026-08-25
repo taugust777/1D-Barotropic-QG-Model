@@ -55,7 +55,7 @@ $\epsilon$ (tol) -> SOR convergence tolerance
 
 ![Example for Model Output](images/Baro_QG_Model_Output.png)
 
-The model reproduces the expected propagation of a barotropic Rossby-wave disturbance. The output figure above shows the evolution of the streamfunction throughout the model run and the corresponding spatial structure at a selected time step.
+The model reproduces the expected propagation of a barotropic Rossby Wave. The output figure above shows the evolution of the streamfunction throughout the model run and the corresponding spatial structure at a selected time step.
 
 # Packages
 
