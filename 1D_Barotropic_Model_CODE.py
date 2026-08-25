@@ -5,7 +5,7 @@
 
 #Steps:
 #1. Need a 1D grid 
-    #1D so use an array for x values (linspace)
+    #1D so use an array for x values (arange)
 
 #2. Then streamfunction perturbation 
     #Sine wave (have amp and wavenumber values)
@@ -16,7 +16,7 @@
 
 #4. Apply SOR
 
-#5. Plot 
+#5. Plots and phase speed verification
 
 
 #____________________________________________________________________________________________________________________________
@@ -26,14 +26,14 @@ import matplotlib.pyplot as plt
 #All constants 
 nx = 128
 lx = 1e6  #m
-nt = 1000
-dt = 100
+nt = 500
+dt = 10
 u = 5 #m/s
-beta = 1.62 * (10 ** -11) #/ms
+beta = 1.62e-11 #/ms
 e = 0.001 #Amplitude
 k = 4 * np.pi / lx #Wavenumber
 omega = 1.5
-tol = 1e-6
+tol = 1e-10
 
 
 #_____________________________________________________________________________________________________________________________
@@ -46,10 +46,16 @@ tol = 1e-6
 #Create an array for x
 
 dx = lx / nx
-x = np.linspace(0, lx, nx)
+x = np.arange(nx) * dx
 
 #dx is grid spacing
 
+#**Note that the quantity u*dt / dx must be below 1**
+    #This ensures a proper time step
+    #Keep in mind when selecting the parameters 
+
+check = (u * dt) / dx
+print("Proper time step check (<1):", check) # Below 1 and it's good
 
 #______________________________________________________________________________________________________________________________
 #2. Streamfunction perturbation
@@ -88,6 +94,15 @@ q = laplacian(psi, dx) #This is the initial q
 
 #plt.plot(q)
 #plt.show()
+
+#The theoretical q value should simply just be -e*k**2 * sin(kx) (from laplacian operator)
+#This will check it:
+q_exact = -e * k**2 * np.sin(k * x)
+
+#Then compare against the actual q
+error = np.max(np.abs(q - q_exact))
+
+print(f"Initial vorticity error = {error:.3e}")
 
 #So, q(x) is in every grid point
 
@@ -136,23 +151,31 @@ q = laplacian(psi, dx) #This is the initial q
 
 #Matrix form SOR: (D + omega*L)x (k+1) = omega*b - [omega*U + (omega-1)D]x (k)
 
-def SOR(q, dx, omega = 1.5, tol = 10**(-6), max_iters = 5000): #Omega is the relaxation factor
+def SOR(q, psi, dx, omega = omega, tol = tol, max_iters = 5000): #Omega is the relaxation factor
                                                                #This is Gauss-Seidel here with omega = 1.5
                                                                #Tolerance can be played around with -> defines how small the error must be to stop iterating
     nx = len(q)
+    
     for iterations in range(max_iters):
         psi_old = psi.copy()
         
-        for i in range(1, nx - 1):
-            psi[i] = (1 - omega) * psi[i] + (omega / 2) * (psi[i-1] + psi[i+1] + q[i] * dx**2)
+        for i in range(nx):
+
+            im = (i - 1) % nx
+            ip = (i + 1) % nx
+            
+            psi[i] = (1 - omega) * psi[i] + (omega / 2) * (psi[im] + psi[ip] - q[i] * dx**2)
             #This comes from the second-order finite difference approximation
             #Gauss-Seidel uses new values as soon as they're available
             #The Gauss-Seidel method updates get a new value of psi[i], then the SOR moves it a little further in that direction to speed convergence
             
         #This is where tolerance is checked
         #Residual is very small
-        if np.max(np.abs(psi - psi_old)) < tol:
+        error = np.max(np.abs(psi - psi_old))
+
+        if error < tol:
             break
+
     return psi
 
 #print(psi)
@@ -172,8 +195,11 @@ for n in range(nt):
 
     #Then step it forward
     q += dt * dq_dt
+    q -= np.mean(q)
 
-    psi = SOR(q, dx, omega = 1.5)
+    psi = SOR(q, psi, dx, omega=1.5)
+    psi -= np.mean(psi)
+
     psi_all[n, :] = psi
 
 
@@ -184,30 +210,55 @@ for n in range(nt):
 wavelength = 2 * np.pi / k
 c = u - beta / k ** 2
 
-print(f"Wavelength = {wavelength:.4f} m")  
-print(f"Speed = {c:.4f} m/s") 
+#print(f"Wavelength = {wavelength:.4f} m")  
+#print(f"Speed = {c:.4f} m/s") 
 
 
 
 #_____________________________________________________________________________________________________________________________
-#5. Plots
+#5. Plots and phase speed verification
 #Contour plot of x vs. time
 #Plot of x vs. Psi
+#Theoretical phase speed vs numerical phase speed verification plot
 #Overlay to see results
 
 X = x #For contour
 T = np.arange(nt) * dt #For countour
                        #Gives an array for the time values to be plotted 
 
-t_index = 200 #This can be changed (0 - 999) -> multiplied by 10^2 on y axis 
+t_index = 100 #This can be changed (0 - nt - 1) -> multiplied by 10^2 on y axis 
               #Also have that black line on the top plot corresponding to the time (lower plot shows snapshot of that time)
 time_value = T[t_index] #Store the time values in this array
 
+#Before plotting, the phase speed can be verified
+#Tracking the crests of the waves can give an idea about how fast the wave is moving
+#This can then be compared to the theoretical result obtained earlier in the model code here (variable: c)
 
-#This is for the contour plot with 25 levels
+#Track the crest positions
+crest_positions = []
+
+for n in range(nt):
+    crest_index = np.argmax(psi_all[n, :])
+    crest_positions.append(x[crest_index])
+
+#Array for where the crest positions are at
+crest_positions = np.array(crest_positions)
+
+
+c_numerical, intercept = np.polyfit(T, crest_positions, 1)
+
+#Results
+print(f"Theoretical phase speed = {c:.4f} m/s")
+print(f"Numerical phase speed = {c_numerical:.4f} m/s")
+
+
+#Now can plot
+plt.subplots(2, 2, layout = "compressed")
+
+#This is for the contour fill plot
 #plt.figure(figsize=(8,4))
 plt.subplot(2, 2, 1)
-cf = plt.contourf(X, T, psi_all, levels = 25, cmap = "rainbow") 
+cf = plt.contourf(X, T, psi_all, levels = np.arange(-0.0015, 0.0015, .0002), extend = "both", cmap = "rainbow") 
                                                         
 #plt.colorbar(label = "Psi")
 
@@ -217,57 +268,59 @@ plt.plot(x, np.full_like(x, time_value) + psi_all[t_index, :], color = "black", 
 #Taking array for the x, t (full_like) and adding the psi plot to it
 #It overlays the black line onto the contour plot; then that black line is shown below the contour plot, and you see the Rossby wave at a specified time 
 
-plt.xlabel("x (m)", labelpad = -1)
+plt.xlabel("x (m)")
 plt.ylabel("Time (s)")
-plt.title("Psi (25 levels)", y = 0.98)
+plt.xlim(0, lx)
+plt.title("Psi")
 #plt.show()
 
 #This is for the contour plot with no fill
 plt.subplot(2, 2, 2)
-plt.contour(X, T, psi_all, cmap = "rainbow") #Gonna go with no fill here just to see another visual
+plt.contour(X, T, psi_all, levels = np.arange(-0.0015, 0.0015, .0002), cmap = "rainbow") #Gonna go with no fill here just to see another visual
 #plt.colorbar(label = "Psi")
+
+#**Note the levels = np.arange() bounds may need to be changed/modified depending on parameter input**
 
 #Overlay the line
 plt.plot(x, np.full_like(x, time_value), color = "black", lw = 1)
-plt.xlabel("x (m)", labelpad = -1)
-plt.ylabel("Time (s)")
-plt.title("Psi (no fill)", y = 0.98)
-#plt.show()
-
-#This is for the contour plot with 50 levels
-plt.subplot(2, 2, 3)
-plt.contourf(X, T, psi_all, levels = 50, cmap = "rainbow") #Gonna go with 50 levels and fill here just to see another visual
-#plt.colorbar(label = "Psi")
-
-#Overlay the line
-plt.plot(x, np.full_like(x, time_value) + psi_all[t_index, :], color = "black", lw = 1)
 plt.xlabel("x (m)")
 plt.ylabel("Time (s)")
-plt.title("Psi (50 levels)", y = 0.98)
+plt.xlim(0, lx)
+plt.title("Psi (no fill)")
 #plt.show()
+
+#This is for a plot that shows the crests for the theoretical and numerical phase speeds
+plt.subplot(2, 2, 3)
+x0 = crest_positions[0]
+
+x_theory = x0 + c * T
+
+plt.plot(T, crest_positions, color = "blue", label = "Numerical")
+plt.plot(T, x_theory, color = "orange", label = "Theoretical")
+
+plt.xlabel("Time (s)")
+plt.ylabel("Crest position (m)")
+plt.title("Rossby Wave Phase Propagation")
+plt.legend(fontsize = 10)
+#plt.show()
+
 
 #This is for the plot (x vs. Psi)
 plt.subplot(2, 2, 4)
 plt.plot(x, psi_all[t_index, :], c = "black")
-plt.ylim(-0.0025, 0.0025) #These can change; just here for set conditions
+#plt.ylim(-0.002, 0.002) #These can change; just here for set conditions
 plt.xlabel("x (m)")
 plt.ylabel("Psi (m^2/s)")
-plt.title("Psi at a given time interval", y = 0.98)
+plt.title("Psi at a given time interval")
 
 
-plt.subplots_adjust(hspace = 0.6, wspace = 0.3) #This is for spacing between plots
-
-#Adjusting the layout and adding shared colorbar here
-plt.tight_layout(rect = [0, 0.05, 1, 1]) #This rect function is adding space for that common/shared color bar
-cbar = plt.colorbar(cf, ax = plt.gcf().axes, orientation = "horizontal", fraction=0.05, pad=0.17)
+cbar = plt.colorbar(cf, ax = plt.gcf().axes, orientation = "horizontal")
                                         #The plt.gcf().axes just connects the color bar to all the plots
                                         #Helps give the shared color plot
-                                        #Fraction is the width of the shared color bar relative to my plots
-                                        #Pad moves the location of the shared color bar
+                                        
 
 cbar.set_label("Psi (m^2/s)")
-plt.suptitle("Evolution of the Streamfunction (Psi)", y = 1.05)
-#plt.legend(print(f"Wavelength = {wavelength:.4f} m"), print(f"Speed = {c:.4f} m/s"))
-plt.figure(figsize = (10, 14))
+plt.suptitle("Evolution of the Streamfunction (Psi)")
+
 plt.show()
 
