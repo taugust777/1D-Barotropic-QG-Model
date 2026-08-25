@@ -2,7 +2,7 @@
 
 # Overview
 
-The code in this repository is a simple 1D Barotropic Quasi-Geostrophic model that tracks Rossby Wave propagation.  The fundamental equation utilized in this model is the 1D potential vorticity conservation equation:
+The code in this repository is a simple 1D Barotropic Quasi-Geostrophic model that tracks Rossby Wave propagation.  The goal of this model was to create a simple, easy-to-use code to examine Rossby Wave propagation. The fundamental equation utilized in this model is the 1D potential vorticity conservation equation:
 
 $$
 \frac{\partial q}{\partial t} + u \frac{\partial q}{\partial x} + \beta \frac{\partial \psi}{\partial x} = 0      
@@ -31,38 +31,39 @@ An overlaid black line appears on the first three panels and is an indicator of 
 
 # Model Parameters
 
-nx -> grid points
+nx -> number of spatial grid points
 
-lx -> length
+lx -> domain length (m)
 
-nt -> number of time frames
+nt -> number of time steps
 
-dt -> time step
+dt -> time step (s)
 
 u -> zonal velocity component (m/s)
 
 $\beta$ (beta) -> planetary vorticity gradient (/ms)
 
-e -> amplitude
+e -> initial disturbance amplitude
 
 k = 4 * np.pi / lx -> wavenumber
 
-$\omega$ (omega)  -> relaxation factor
+$\omega$ (omega)  -> SOR relaxation factor
 
-$\epsilon$ (tol) -> tolerance
+$\epsilon$ (tol) -> SOR convergence tolerance
 
 # Output Example
 
 ![Example for Model Output](images/Baro_QG_Model_Output.png)
 
+The model reproduces the expected propagation of a barotropic Rossby-wave disturbance. The output figure above shows the evolution of the streamfunction throughout the model run and the corresponding spatial structure at a selected time step.
+
 # Packages
 
-The only packages needed to run this model are numpy and matplotlib.  The goal of this model was to create a simple, easy-to-use code to examine Rossby Wave propagation.
+The only packages needed to run this model are numpy and matplotlib.
+
+# Use
 
 The code here is free and available to download, use, and can be modified any way.  I do ask for an appropriate acknowledgement should it be used in any kind of project, publication, teaching material, etc.
-
-
-
 
 # Reference Links
 
