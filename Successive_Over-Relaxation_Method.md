@@ -96,7 +96,7 @@ $$
 Dx^{(k+1)} + Lx^{(k+1)} + Ux^{(k)} = b
 $$
 
-where $x^{(k)}$ denotes the k-th iteration of x
+where $x^{(k)}$ denotes the k-th iteration of x.
 
 Now, assume the tridiagonal system is
 
@@ -202,3 +202,9 @@ In the above equation:
    b. Uses the old rightward point: $\psi_{i+1}^{(k)}$
    
    c. Also incorporates the $f_{i}$ term (i.e., q)
+
+Reference Links:
+
+https://mathworld.wolfram.com/Gauss-SeidelMethod.html 
+
+https://blasingame.engr.tamu.edu/z_zCourse_Archive/P620_15C/P620_15C_zReference/PDF_Txt_Hnbk_Num_Meth.pdf 
