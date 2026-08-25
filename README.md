@@ -28,7 +28,7 @@ All constants are listed at the beginning of the script (“1D_Barotropic_Model_
 4. Bottom-right: the streamfunction at a given time step (ψ vs. x)
 
 The model also returns:
-1. A time check value to ensure the forward Euler time-stepping scheme is appropriate for the chosen model parameters (value should be <1)
+1. A time check value to ensure the forward Euler time-stepping scheme is appropriate for the chosen model parameters (value should be <1; however, note that this is not a complete stability test)
 2. The initial vorticity error comparing the numerical value obtained to the theoretical value obtained
 3. The theoretical phase speed
 4. The numerical phase speed
