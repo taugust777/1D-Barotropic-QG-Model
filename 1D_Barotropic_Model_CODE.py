@@ -14,8 +14,7 @@
     #q = laplacian of streamfunction(psi)
     #So find Laplacian (finite differences from the Taylor series)
 
-#4. Time step
-    #Time stepping area (SOR)
+#4. Apply SOR
 
 #5. Plot 
 
@@ -48,9 +47,6 @@ tol = 1e-6
 
 dx = lx / nx
 x = np.linspace(0, lx, nx)
-
-#x from 0 to 1e6 
-
 
 #dx is grid spacing
 
@@ -100,7 +96,7 @@ q = laplacian(psi, dx) #This is the initial q
 
 
 #______________________________________________________________________________________________________________________________
-#4. Time step
+#4. SOR
 #Use dq/dt + u * dq/dx + beta * d psi/dx = 0
 #Then dq/dt = -u * dq/dx - beta * d psi/dx
 
@@ -139,6 +135,7 @@ q = laplacian(psi, dx) #This is the initial q
     #Repeat until residuals are below tolerance
 
 #Matrix form SOR: (D + omega*L)x (k+1) = omega*b - [omega*U + (omega-1)D]x (k)
+
 def SOR(q, dx, omega = 1.5, tol = 10**(-6), max_iters = 5000): #Omega is the relaxation factor
                                                                #This is Gauss-Seidel here with omega = 1.5
                                                                #Tolerance can be played around with -> defines how small the error must be to stop iterating
@@ -187,8 +184,8 @@ for n in range(nt):
 wavelength = 2 * np.pi / k
 c = u - beta / k ** 2
 
-print(f"Wavelength = {wavelength:.4f} m")  #Based on the assigned k, it should be about half of lx (1 * 10^6)
-print(f"Speed = {c:.4f} m/s") #Should be close to u value at the start
+print(f"Wavelength = {wavelength:.4f} m")  
+print(f"Speed = {c:.4f} m/s") 
 
 
 
@@ -266,7 +263,8 @@ cbar = plt.colorbar(cf, ax = plt.gcf().axes, orientation = "horizontal", fractio
                                         #The plt.gcf().axes just connects the color bar to all the plots
                                         #Helps give the shared color plot
                                         #Fraction is the width of the shared color bar relative to my plots
-                                        #Pad moves the location of my shared color bar
+                                        #Pad moves the location of the shared color bar
+
 cbar.set_label("Psi (m^2/s)")
 plt.suptitle("Evolution of the Streamfunction (Psi)", y = 1.05)
 #plt.legend(print(f"Wavelength = {wavelength:.4f} m"), print(f"Speed = {c:.4f} m/s"))
