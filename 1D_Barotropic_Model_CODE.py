@@ -151,8 +151,7 @@ def SOR(q, dx, omega = 1.5, tol = 10**(-6), max_iters = 5000): #Omega is the rel
             #This comes from the second-order finite difference approximation
             #Gauss-Seidel uses new values as soon as they're available
             #The Gauss-Seidel method updates get a new value of psi[i], then the SOR moves it a little further in that direction to speed convergence
-            #The weighted average is taken, which is what introduces the omega relaxation term
-
+            
         #This is where tolerance is checked
         #Residual is very small
         if np.max(np.abs(psi - psi_old)) < tol:
@@ -179,13 +178,6 @@ for n in range(nt):
 
     psi = SOR(q, dx, omega = 1.5)
     psi_all[n, :] = psi
-
-    #Trying to get psi (to plot it)
-    #Need to update psi
-    #That comes from q
-    #And q is the Laplacian of psi
-    #Use successive over-relaxation - Gauss-Seidel method
-    #Gonna just start with omega = 1 then work up from there
 
 
 #print(psi_all)
