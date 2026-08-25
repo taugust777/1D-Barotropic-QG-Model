@@ -31,7 +31,25 @@ An overlaid black line appears on the first three panels and is an indicator of 
 
 # Model Parameters
 
+nx -> grid points
 
+lx -> length
+
+nt -> number of time frames
+
+dt -> time step
+
+u -> zonal velocity component (m/s)
+
+$\beta$ (beta) -> planetary vorticity gradient (/ms)
+
+e -> amplitude
+
+k = 4 * np.pi / lx -> wavenumber
+
+$\omega$ (omega)  -> relaxation factor
+
+$\epsilon$ (tol) -> tolerance
 
 # Output Example
 
