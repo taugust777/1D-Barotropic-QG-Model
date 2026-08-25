@@ -74,7 +74,7 @@ The returned values are:
 - Theoretical phase speed = 4.5896 m/s
 - Numerical phase speed = 4.8610 m/s
 
-The model reproduces the expected propagation of a barotropic Rossby Wave. The output figure above shows the evolution of the streamfunction throughout the model run and the corresponding spatial structure at a selected time step (here, t_index = 100). The plot also shows the computed numerical and theoretical phase speeds. The example plot above was done for the default model conditions/parameters.
+The model reproduces the expected propagation of a barotropic Rossby Wave. The output figure above shows the evolution of the streamfunction throughout the model run and the corresponding spatial structure at a selected time step (here, t_index = 100). The plot also shows the computed numerical and theoretical phase speeds. The example plot above was done for the default model conditions/parameters. See the file "Example_Output.md" for an example using different parameter values as well as analysis ideas.
 
 # Packages
 
