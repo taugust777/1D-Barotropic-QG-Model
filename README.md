@@ -16,18 +16,24 @@ $$
 
 # Numerical Methods
 
-The model utilizes a finite difference grid scheme as well as a Successive Over-Relaxation (SOR) method to iteratively solve the Poisson equation relating the streamfunction and the vorticity (see the file: “Successive_Over-Relaxation_Method.md” for details).  
+The model utilizes a finite difference grid scheme as well as a Successive Over-Relaxation (SOR) method to iteratively solve the Poisson equation relating the streamfunction and the vorticity (see the file: “Successive_Over-Relaxation_Method.md” for details). The model also contains periodic boundary conditions and utilizes a forward Euler time step. 
 
 # Running the Model
 
 All constants are listed at the beginning of the script (“1D_Barotropic_Model_CODE.py”) as well as below, and the output produces a four-panel plot that includes the following:
 
-1. Top-left: the streamfunction evolution (filled) with contour fill set to 25 levels
+1. Top-left: the streamfunction evolution (filled) 
 2. Top-right: the streamfunction evolution with contours only
-3. Bottom-left: the streamfunction evolution (filled) with contour fill set to 50 levels
+3. Bottom-left: The numerical phase speed propagation and the theoretical phase speed propagation
 4. Bottom-right: the streamfunction at a given time step (ψ vs. x)
-  
-An overlaid black line appears on the first three panels and is an indicator of the selected time step (the “t_index” variable).  This overlaid black line is what is displayed on the bottom-right panel that plots the streamfunction vs. the horizontal distance.  An example output is shown in the file “Example_Output.md” as well as below.
+
+The model also returns:
+1. A time check value to ensure the forward Euler time-stepping scheme is appropriate for the chosen model parameters (value should be >1)
+2. The initial vorticity error comparing the numerical value obtained to the theoretical value obtained
+3. The theoretical phase speed
+4. The numerical phase speed
+
+The top-left and top-right plots contain an overlaid black line, which is an indicator of the selected time step (the “t_index” variable). This overlaid black line is what is displayed on the bottom-right panel that plots the streamfunction vs. the horizontal distance. The bottom-left plot shows the numerical phase speed propagation that was obtained from the model and the computed theoretical phase speed. The numerical phase speed is found by examining the crest points. An example output is shown in the file “Example_Output.md” and below.
 
 # Model Parameters
 
@@ -55,7 +61,7 @@ $\epsilon$ (tol) -> SOR convergence tolerance
 
 ![Example for Model Output](images/Baro_QG_Model_Output.png)
 
-The model reproduces the expected propagation of a barotropic Rossby Wave. The output figure above shows the evolution of the streamfunction throughout the model run and the corresponding spatial structure at a selected time step.
+The model reproduces the expected propagation of a barotropic Rossby Wave. The output figure above shows the evolution of the streamfunction throughout the model run and the corresponding spatial structure at a selected time step. The plot also shows the computed numerical and theoretical phase speeds. The example plot above was done for the default model conditions/parameters.
 
 # Packages
 
