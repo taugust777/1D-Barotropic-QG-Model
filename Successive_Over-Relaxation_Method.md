@@ -158,7 +158,7 @@ Therefore, at each iteration:
 1. There is a current guess (the $x_{i}^{(k)}$ term)
 2. The residual, $r_{i}^{(k)}$ is computed (i.e., how far from satisfying the equation)
 3. The residual is used to correct $x_{i}^{(k)}$ (scaled by $\frac{\omega}{b_{i}}$)
-4. $\epsilon$ > 1 takes bigger corrective steps (over-relaxation)
+4. $\omega$ > 1 takes bigger corrective steps (over-relaxation)
 5. Sweep across i = 1, 2, ..., n
 6. Repeat until the residuals are below the tolerance
 
