@@ -1,5 +1,6 @@
 #1D Barotropic Quasi-geostrophic model
 #Tim August
+#11 / 11 / 25
 
 #Focus on streamfunction (and Rossby wave propagation)
 
