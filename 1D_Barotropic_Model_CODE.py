@@ -36,7 +36,7 @@ beta = 1.62e-11 #/ms
 e = 0.001 #Amplitude
 omega = 1.5
 tol = 1e-10
-t_index = 100 #This can be changed (0 to nt - 1) -> multiplied by 10^2 on y axis 
+t_index = 100 #This can be changed (0 to nt - 1) 
               #Also have that black line on the top plot corresponding to the time (lower plot shows snapshot of that time)
 
 
