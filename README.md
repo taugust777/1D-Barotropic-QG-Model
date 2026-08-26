@@ -44,7 +44,7 @@ nx -> number of spatial grid points
 
 lx -> domain length (m)
 
-k = 4 * np.pi / lx -> wavenumber
+k = 2 * np.pi / lx -> wavenumber
 
 ### Model Parameters
 
