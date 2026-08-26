@@ -41,7 +41,7 @@ Further output:
 -Numerical phase speed = 49.6897 m/s
 
 
-The black line shows the selected "t_index" parameter. In this run, "t_index" was set to 250 (scaling factor of 100 via the y-axis output). The bottom-right figure shows the streamfunction vs. the distance for that given "t_index" time selected. The numerical and theoretical Rossby Wave phase speed evolutions are in good agreement and there is noticeable tilit in the streamfunction evolution.
+The black line shows the selected "t_index" parameter. In this run, "t_index" was set to 250. The bottom-right figure shows the streamfunction vs. the distance for that given "t_index" time selected. The numerical and theoretical Rossby Wave phase speed evolutions are in good agreement, and there is noticeable tilt in the streamfunction evolution.
 
 ## Ideas for Future Runs
 1. Explore the role that $\beta$ and the zonal velocity component, u, have on the system and model output. Examine if there is a relationship between the two parameters themselves.
