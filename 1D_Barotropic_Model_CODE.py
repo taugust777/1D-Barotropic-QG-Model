@@ -25,9 +25,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #Model constants -> keep as is
+lx = 1e6  #m
 k = 2 * np.pi / lx #Wavenumber
 nx = 128
-lx = 1e6  #m
 
 #Parameters -> can be modified
 nt = 500
