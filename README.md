@@ -33,8 +33,7 @@ The model also returns:
 3. The theoretical phase speed
 4. The numerical phase speed
 
-The top-left and top-right plots contain an overlaid black line, which is an indicator of the selected time step (the “t_index” variable). This overlaid black line is what is displayed on the bottom-right panel that plots the streamfunction vs. the horizontal distance. The bottom-left plot shows the numerical phase speed propagation that was obtained from the model and the computed theoretical phase speed. The numerical phase speed is found by examining the crest points. An example output is shown in the file “Example_Output.md"
-and the default model output is shown below.
+The top-left and top-right plots contain an overlaid black line, which is an indicator of the selected time step (the “t_index” variable). This overlaid black line is what is displayed on the bottom-right panel that plots the streamfunction vs. the horizontal distance. The bottom-left plot shows the numerical phase speed propagation that was obtained from the model and the computed theoretical phase speed. The numerical phase speed is found by examining the crest points. 
 
 # Model Input
 
@@ -76,7 +75,7 @@ The returned values are:
 - Theoretical phase speed = 4.5896 m/s
 - Numerical phase speed = 4.8610 m/s
 
-The model reproduces the expected propagation of a barotropic Rossby Wave. The output figure above shows the evolution of the streamfunction throughout the model run and the corresponding spatial structure at a selected time step (here, t_index = 100). The plot also shows the computed numerical and theoretical phase speeds. The example plot above was done for the default model conditions/parameters. See the file "Example_Output.md" for an example using different parameter values as well as analysis ideas.
+The model reproduces the expected propagation of a barotropic Rossby Wave. The output figure above shows the evolution of the streamfunction throughout the model run and the corresponding spatial structure at a selected time step (here, t_index = 100). The plot also shows the computed numerical and theoretical phase speeds. The example plot above was done for the default model conditions/parameters. 
 
 ### Another Example:
 
