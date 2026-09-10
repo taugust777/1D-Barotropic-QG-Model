@@ -80,10 +80,6 @@ The model reproduces the expected propagation of a barotropic Rossby Wave. The o
 
 The only packages needed to run this model are numpy and matplotlib.
 
-# Use
-
-The code here is free and available to download, use, and can be modified any way.  I do ask for an appropriate acknowledgement should it be used in any kind of project, publication, teaching material, etc.
-
 # Reference Links
 
 https://blogs.millersville.edu/adecaria/files/2021/11/esci342_lesson13_vorticity_equation.pdf 
